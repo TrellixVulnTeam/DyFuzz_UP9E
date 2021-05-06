@@ -94,7 +94,7 @@ def gen_log(mod,api,n,s):
 def after_timeout():
   print("finish..........")
 
-@timeout.set_timeout(3,after_timeout)
+@timeout.set_timeout(300,after_timeout)
 def run( mod,api,n):
   global totalAPI
   while True:
@@ -105,7 +105,7 @@ def run( mod,api,n):
 
     # if platform.system() == "Darwin":
     # 	s = os.system(" python3.9  apifuzzer.py %s %s %s"%(mod,api,n))
-    s = os.system("'/home/xxm/Desktop/apifuzz/experiments/Python-3.9.2/python'  apifuzzer.py %s %s %s"%(mod,api,n))
+    s = os.system("'Python-3.9.2/python'  apifuzzer.py %s %s %s"%(mod,api,n))
     totalAPI = totalAPI +2
       
     # t = t+2
@@ -129,7 +129,7 @@ open("log.txt",'a').write("\n")
 
 # run(mod,api,n)
 
-moddic = json.load(open( '/home/xxm/Desktop/apifuzz/experiments/doc/modules.json','r'))
+moddic = json.load(open( 'doc/modules.json','r'))
 # ignorelist = ["sigwait","crypt","binhex",'kill','killpg','tcflow','askokcancel',"askquestion"]
 ignorelist =[]
 
@@ -137,7 +137,7 @@ ignorelist =[]
 # print(len(moddic.keys()))
 
 # mcount = 0
-for mod in list(moddic.keys())[0:3]:
+for mod in list(moddic.keys()):
   # mcount = mcount + 1
   for api in moddic[mod]:
     if api in ignorelist:
@@ -145,7 +145,7 @@ for mod in list(moddic.keys())[0:3]:
     else:
       n = moddic[mod][api]["pn"][1]
       if n == 0:
-        s = os.system("'/home/xxm/Desktop/apifuzz/experiments/Python-3.9.2/python'  apifuzzer.py %s %s %s"%(mod,api,n))
+        s = os.system("'Python-3.9.2/python'  apifuzzer.py %s %s %s"%(mod,api,n))
         gen_log(mod,api,n,s)
         totalAPI =totalAPI + 1
       else:
